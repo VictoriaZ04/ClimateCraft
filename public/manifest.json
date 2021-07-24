@@ -33,11 +33,11 @@
         "override_on_update": true,
         "size": {
           "width": 500,
-          "height": 10
+          "height": 400
         },
         "min_size": {
           "width": 500,
-          "height": 10
+          "height": 400
         }
       },
       "in_game": {
@@ -49,12 +49,12 @@
         "transparent": true,
         "override_on_update": true,
         "size": {
-          "width": 500,
-          "height": 10
+          "width": 60,
+          "height": 600
         },
         "min_size": {
-          "width": 500,
-          "height": 10
+          "width": 60,
+          "height": 600
         }
       }
     },
