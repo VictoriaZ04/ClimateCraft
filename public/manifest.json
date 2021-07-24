@@ -32,12 +32,12 @@
         "transparent": true,
         "override_on_update": true,
         "size": {
-          "width": 1212,
-          "height": 699
+          "width": 500,
+          "height": 10
         },
         "min_size": {
-          "width": 1212,
-          "height": 699
+          "width": 500,
+          "height": 10
         }
       },
       "in_game": {
@@ -49,30 +49,30 @@
         "transparent": true,
         "override_on_update": true,
         "size": {
-          "width": 1212,
-          "height": 699
+          "width": 500,
+          "height": 10
         },
         "min_size": {
-          "width": 1212,
-          "height": 699
+          "width": 500,
+          "height": 10
         }
       }
     },
     "game_targeting": {
       "type": "dedicated",
       "game_ids": [
-        21216
+        8032
       ]
     },
     "game_events": [
-      21216
+      8032
     ],
     "launch_events": [
       {
         "event": "GameLaunch",
         "event_data": {
           "game_ids": [
-            21216
+            8032
           ]
         },
         "start_minimized": false

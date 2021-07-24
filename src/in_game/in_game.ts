@@ -1,8 +1,80 @@
+import { AppWindow } from "../AppWindow";
+import {
+  OWGamesEvents,
+  OWHotkeys
+} from "@overwolf/overwolf-api-ts";
+import { interestingFeatures, hotkeys, windowNames } from "../consts";
+import WindowState = overwolf.windows.WindowStateEx;
+
 var g_interestedInFeatures = [
   'game_info',
   'match_info'
 ];
 
+class InGame extends AppWindow{
+  private static _instance: InGame;
+  private _minecraftGameEventsListener: OWGamesEvents;
+  private _eventsLog: HTMLElement;
+  private _infoLog: HTMLElement;
+
+  private constructor(){
+    super(windowNames.inGame);
+
+    this._eventsLog = document.getElementById('eventsLog');
+    this._infoLog = document.getElementById('infoLog');
+
+    this._minecraftGameEventsListener = new OWGamesEvents({
+      onInfoUpdates: this.onInfoUpdates.bind(this),
+      onNewEvents: this.onNewEvents.bind(this)
+    },
+      interestingFeatures);
+  }
+
+  private onNewEvents(e) {
+    const shouldHighlight = e.events.some(event => {
+      
+          return true;
+      
+      return false
+    });
+    this.logLine(this._eventsLog, e, shouldHighlight);
+  }
+
+  public static instance() {
+    if (!this._instance) {
+      this._instance = new InGame();
+    }
+
+    return this._instance;
+  }
+
+  public run() {
+    this._minecraftGameEventsListener.start();
+  }
+
+  private onInfoUpdates(info) {
+    this.logLine(this._infoLog, info, false);
+  }
+
+  private logLine(log: HTMLElement, data, highlight) {
+    console.log(`${log.id}:`);
+    console.log(data);
+    const line = document.createElement('pre');
+    line.textContent = JSON.stringify(data);
+
+    if (highlight) {
+      line.className = 'highlight';
+    }
+
+    const shouldAutoScroll = (log.scrollTop + log.offsetHeight) > (log.scrollHeight - 10);
+
+    log.appendChild(line);
+
+    if (shouldAutoScroll) {
+      log.scrollTop = log.scrollHeight;
+    }
+  }
+}
 var onErrorListener,onInfoUpdates2Listener,	onNewEventsListener;
 
 function registerEvents() {

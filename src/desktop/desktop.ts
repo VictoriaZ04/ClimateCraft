@@ -13,3 +13,7 @@ overwolf.games.launchers.getRunningLaunchersInfo((response) => {
 overwolf.games.launchers.onLaunched.addListener((response) => {
     console.log(response)
 })
+
+overwolf.games.launchers.onTerminated.addListener((response) =>{
+    console.log(response)
+});
