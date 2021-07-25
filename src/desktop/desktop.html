@@ -53,26 +53,28 @@
       </div>
       <!-- Launch Fortnite! -->
       <div id="middle">
-        <h1></h1>
+        <h3>Recommended Seed:</h3>
+        <div class="settings">
+          <h2 id = "setting" value=></h2>
+          <script> 
+            let theList = ["1955471898","6254448515498253750","6254448515498253750","-7453340963196383811","1156391694"]
+      
+              function randomWordPicker(aList){
+                  let theListLength = theList.length / 10
+                  let theAnswer = Math.floor( ( Math.random( ) * 10 ) * theListLength  ) 
+                  return aList[theAnswer]
+              }
+              
+              let result = randomWordPicker(theList)
+              document.getElementById("setting").innerHTML = result
+            </script>
+          
+        </div>    
+        
       </div>
       <!-- picture -->
     </div>
-    <div class ="tips">
-      <html>
-          <button class="seed" onclick="randomizeFunction()"></button>
-          <p id="randomWord"></p>
-        </html>
-
-      <script>
-      const seeds = ["1955471898","6254448515498253750","6254448515498253750","-7453340963196383811","1156391694"];
-
-      randomizeFunction()
-
-      function randomizeFunction() {
-          document.getElementById("randomWord").innerHTML = myList[Math.floor(Math.random() * seeds.length)]
-      }
-      </script>
-    </div>
+    
     </div>
   </main>
 

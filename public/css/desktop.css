@@ -9,6 +9,10 @@ body {
   overflow: hidden;
 }
 
+.seeds {
+
+}
+
 main {
   flex: auto;
   display: flex;
@@ -29,12 +33,12 @@ a {
 
 .desktopTop {
   color: white;
-  background-color: #ff26ff;
+  background-color: #331d33;
   width: 100%;
   height: 243px;
   top: 0;
   text-align: center;
-  background-image: url("../img/speedcraft_logo.png");
+  background-image: url("../img/speedcraft_logo4.png");
 }
 
 .desktopTop h1 {
@@ -67,11 +71,11 @@ a {
 }
 
 .desktopBottom {
-  background-color: #393e5f;
+  background-color: #2b2f4b;
   width: 100%;
   flex: 1;
   display: flex;
-  padding: 67px 0px;
+  padding: 10px 0px;
 }
 
 .desktopBottom > #left {
@@ -105,19 +109,22 @@ a {
   margin-right: 10px;
 }
 
-.desktopTop h3 {
+.desktopBottom h3 {
   font-family: "Roboto Mono";
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
+  font-size: 24px;
   color: #f1c121;
+  padding: 10px 70px;
+  background-color: #262542;
 }
 
 .settings{
   font-family: "Roboto Mono";
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
+  font-size: 20px;
+  padding: 10px 100px;
   color: #f1c121;
 }
 
