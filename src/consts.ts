@@ -11,7 +11,7 @@ const windowNames = {
 };
 
 const hotkeys = {
-  toggle: 'showhide'
+  hotkey1: 'hotkey1'
 };
 
 export {

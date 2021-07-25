@@ -6,10 +6,6 @@ import {
 import { interestingFeatures, hotkeys, windowNames } from "../consts";
 import WindowState = overwolf.windows.WindowStateEx;
 
-var g_interestedInFeatures = [
-  'game_info',
-  'match_info'
-];
 
 class InGame extends AppWindow{
   private static _instance: InGame;
@@ -30,15 +26,6 @@ class InGame extends AppWindow{
       interestingFeatures);
   }
 
-  private onNewEvents(e) {
-    const shouldHighlight = e.events.some(event => {
-      
-          return true;
-      
-      return false
-    });
-    this.logLine(this._eventsLog, e, shouldHighlight);
-  }
 
   public static instance() {
     if (!this._instance) {
@@ -55,6 +42,44 @@ class InGame extends AppWindow{
   private onInfoUpdates(info) {
     this.logLine(this._infoLog, info, false);
   }
+
+  private onNewEvents(e) {
+    const shouldHighlight = e.events.some(event => {
+      switch (event.name) {
+        case 'game_info':
+        case 'match_info':
+          return true;
+      }
+
+      return false
+    });
+    this.logLine(this._eventsLog, e, shouldHighlight);
+  }
+
+  // Displays the toggle minimize/restore hotkey in the window header
+  private async setToggleHotkeyText() {
+    const hotkeyText = await OWHotkeys.getHotkeyText(hotkeys.hotkey1, 8032);
+    const hotkeyElem = document.getElementById('hotkey');
+    hotkeyElem.textContent = hotkeyText;
+  }
+
+  // Sets toggleInGameWindow as the behavior for the Ctrl+F hotkey
+  private async setToggleHotkeyBehavior() {
+    const toggleInGameWindow = async (hotkeyResult: overwolf.settings.hotkeys.OnPressedEvent): Promise<void> => {
+      console.log(`pressed hotkey for ${hotkeyResult.name}`);
+      const inGameState = await this.getWindowState();
+
+      if (inGameState.window_state === WindowState.NORMAL ||
+        inGameState.window_state === WindowState.MAXIMIZED) {
+        this.currWindow.minimize();
+      } else if (inGameState.window_state === WindowState.MINIMIZED ||
+        inGameState.window_state === WindowState.CLOSED) {
+        this.currWindow.restore();
+      }
+    }
+      OWHotkeys.onHotkeyDown(hotkeys.hotkey1, toggleInGameWindow);
+
+    }
 
   private logLine(log: HTMLElement, data, highlight) {
     console.log(`${log.id}:`);
@@ -135,6 +160,11 @@ function gameLaunched(gameInfoResult) {
 
 }
 
+var g_interestedInFeatures = [
+  'game_info',
+  'match_info'
+];
+
 function gameRunning(gameInfo) {
 
   if (!gameInfo) {
@@ -172,6 +202,8 @@ function setFeatures() {
 }
 
 
+
+
 // Start here
 overwolf.games.onGameInfoUpdated.addListener(function (res) {
   if (gameLaunched(res)) {
@@ -189,3 +221,6 @@ overwolf.games.getRunningGameInfo(function (res) {
   }
   console.log("getRunningGameInfo: " + JSON.stringify(res));
 });
+overwolf.windows.changePosition("in_game", 0, 225, (callback) => {
+  console.log(callback);
+})

@@ -36,11 +36,12 @@
           "height": 400
         },
         "min_size": {
-          "width": 500,
+          "width": 10,
           "height": 400
         }
       },
       "in_game": {
+        
         "file": "in_game.html",
         "in_game_only": true,
         "focus_game_takeover": "ReleaseOnHidden",
@@ -48,13 +49,14 @@
         "resizable": true,
         "transparent": true,
         "override_on_update": true,
+      
         "size": {
-          "width": 60,
-          "height": 600
+          "width": 15,
+          "height": 400
         },
         "min_size": {
-          "width": 60,
-          "height": 600
+          "width": 15,
+          "height": 400
         }
       }
     },
@@ -82,7 +84,7 @@
       "showhide": {
         "title": "Show/Hide In-Game Window",
         "action-type": "toggle",
-        "default": "Ctrl+F"
+        "default": "Ctrl+f"
       }
     },
     "protocol_override_domains": {
@@ -108,5 +110,6 @@
       "reload_delay": 1000,
       "filter": "*.*"
     }
-  }
+      }
 }
+  

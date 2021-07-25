@@ -1,9 +1,9 @@
 .in-game {
   font-family: "Roboto";
 }
-
+  
 body {
-  background-color: #333333;
+  background-color: #3333337a;
   margin: 0px;
   display: flex;
   flex-direction: column;
@@ -16,7 +16,7 @@ main {
   display: flex;
   flex: 1;
   position: relative;
-  padding: 38px;
+  padding: 18px;
 }
 
 h1 {
@@ -25,13 +25,14 @@ h1 {
   font-weight: normal;
   font-size: 18px;
   color: #d5d5d5;
+  padding: 10px 1px 2px 1px
 }
 
 #logs {
   display: flex;
   justify-content: space-between;
   flex: 0 0 auto;
-  width: calc(100% - 210px);
+  width: auto;
 }
 
 .logColumn {
@@ -43,8 +44,8 @@ h1 {
 
 #ad {
   margin-top: auto;
-  height: 300px;
-  width: 400px;
+  height: auto;
+  width: auto;
   background-color: #454545;
   border-radius: 4px;
 }
@@ -53,7 +54,7 @@ h1 {
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
-  width: 210px;
+  width: auto;
 }
 
 #other > #infoParagraph {
@@ -143,4 +144,9 @@ button.logCopy {
 button.logCopy:hover {
   background: #8d8d8d;
   color: #ffffff;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
 }
