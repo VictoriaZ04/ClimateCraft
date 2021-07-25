@@ -12,9 +12,8 @@
   <!-- -------------------------------- Header ------------------------------- -->
 
   <header id="header" class="app-header">
-    <h1>                        ClimateCraft</h1>
+    <h1>SpeedCraft</h1>
     <h1 style="margin: 3px;">
-      Toggle: Ctrl+F
       <span id="hotkey" style="font-weight: bold; color: white;"></span>
     </div>
   </header>
@@ -22,12 +21,46 @@
   <!-- --------------------------------- Main -------------------------------- -->
   <main>
     <div class="sidebar">
-      <h1>Sustainability:</h1>
-      <h1>AQI:</h1>
-      <h1>Temp:</h1>
+      <h2>Food</h2>
+      <h2>Blocks</h2>
+      <h2>Stone Tools</h2>
+      <h2>Shield</h2>
+      <h2>Beds</h2>
+      <h2>Bow and Arrows</h2>
+      <h2>Flint and Steel</h2>
+      <h2>Lava Bucket</h2>
+      <h2>Gold Nuggets</h2>
+      <h2>Blaze Powder</h2>
+      <h2>Ender Pearls</h2>
     </div>
-  </main>
+    <div class="goals">
+      <h2>Craft stone tools</h2>
+      <h2>Get food, blocks, and other items above</h2>
+      <h2>Make a Nether Portal </h2>
+      <h2>Find a Nether Fortress</h2>
+      <h2>Get Blaze rods</h2>
+      <h2>Get Ender Pearls</h2>
+      <h2>Find the Stronghold</h2>
+      <h2>Break End Crystals </h2>
+      <h2>Kill the Ender Dragon</h2>
+    </div>
+    <div class="tips">
+      <h2>Tip:</h2>
+      <script> 
+      let theList = ["Villages are a great source of food, blocks, beds, and other materials!","Use leaf blocks for quick building blocks!","Dig straight down!",""]
 
+        function randomWordPicker(aList){
+            let theListLength = theList.length / 10
+            let theAnswer = Math.floor( ( Math.random( ) * 10 ) * theListLength  ) 
+            return aList[theAnswer]
+        }
+        
+        let result = randomWordPicker(theList)
+        document.querySelector("h2").innerHTML = result
+        </script>
+      
+    </div>
+  </div>
 
   <script>
     // Standard Google Universal Analytics code

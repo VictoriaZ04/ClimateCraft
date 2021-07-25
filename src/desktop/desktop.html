@@ -13,65 +13,66 @@
 <body class="desktop">
   <!-- -------------------------------- Header ------------------------------- -->
 
-  <header id="header" class="app-header">
-    <img src="../../img/header_icon.svg" />
-    <h1>Sample App / desktop window</h1>
-    <div class="window-controls-group">
-      <button class="icon window-control" id="minimizeButton">
-        <svg>
-          <use xlink:href="/img/header_icons.svg#window-control_minimize" />
-        </svg>
-      </button>
-      <button class="icon window-control" id="maximizeButton">
-        <svg>
-          <use xlink:href="/img/header_icons.svg#window-control_maximize" />
-        </svg>
-      </button>
-      <button class="icon window-control window-control-close" id="closeButton">
-        <svg>
-          <use xlink:href="/img/header_icons.svg#window-control_close" />
-        </svg>
-      </button>
-    </div>
-  </header>
+ 
 
   <!-- --------------------------------- Main -------------------------------- -->
   <main>
-    <div class="desktopTop">
-      <h1>Hey World</h1>
-      <p>
-        Welcome to the Overwolf tutorial app for developers.<br />
-        Learn how to build an app by using one!
-      </p>
-      <div id="version"></div>
+    <div class="desktopTop">   
+      <header id="header" class="app-header1">
+        <div class="window-controls-group">
+          <button class="icon window-control" id="minimizeButton">
+            <svg>
+              <use xlink:href="/img/header_icons.svg#window-control_minimize" />
+            </svg>
+          </button>
+          <button class="icon window-control" id="maximizeButton">
+            <svg>
+              <use xlink:href="/img/header_icons.svg#window-control_maximize" />
+            </svg>
+          </button>
+          <button class="icon window-control window-control-close" id="closeButton">
+            <svg>
+              <use xlink:href="/img/header_icons.svg#window-control_close" />
+            </svg>
+          </button>
+        
+      </header>
+      <h1>Speedcraft: A Beginner's Tool for Speedrunning</h1> 
+       
     </div>
     <div class="desktopBottom">
       <!-- Launch Fortnite! -->
       <div id="left">
-        <h1>
-          Launch Fortnite and the In-Game window will pop-up automatically!
-        </h1>
+        <h3>Recommended Settings</h3>
+        <ul class="settings">
+          <li>Increase Render Distance</li>
+          <li>Turn on Hitboxes</li>
+          <li>Turn subtitles on</li>
+          <li>Volume up</li>
+        </ul>
       </div>
       <!-- Launch Fortnite! -->
       <div id="middle">
-        What can you learn with this sample app?
-        <br /><br />
-        1. How to listen to real-time game events and how to identify specific
-        events like start/end match, kill, and death.
-        <br /><br />
-        2. How to use a transparent background window as a service bus, that
-        acts as the main controller of your app.
-        <br /><br />
-        3. How to use Hotkeys that show/hide your app while you are in-game.
+        <h1></h1>
       </div>
       <!-- picture -->
-      <div id="right">
-        <div style="text-align: center">
-          <div style="display: inline-block">
-            <img src="../../img/cool_wolf.png" />
-          </div>
-        </div>
-      </div>
+    </div>
+    <div class ="tips">
+      <html>
+          <button class="seed" onclick="randomizeFunction()"></button>
+          <p id="randomWord"></p>
+        </html>
+
+      <script>
+      const seeds = ["1955471898","6254448515498253750","6254448515498253750","-7453340963196383811","1156391694"];
+
+      randomizeFunction()
+
+      function randomizeFunction() {
+          document.getElementById("randomWord").innerHTML = myList[Math.floor(Math.random() * seeds.length)]
+      }
+      </script>
+    </div>
     </div>
   </main>
 

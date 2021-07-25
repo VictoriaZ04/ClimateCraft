@@ -81,7 +81,7 @@
       }
     ],
     "hotkeys": {
-      "showhide": {
+      "hotkey1": {
         "title": "Show/Hide In-Game Window",
         "action-type": "toggle",
         "default": "Ctrl+f"
@@ -110,6 +110,20 @@
       "reload_delay": 1000,
       "filter": "*.*"
     }
-      }
+      },
+
+      "data1": {
+        "start_window": "Timer",
+        "windows": {
+            "MainWindow": {
+                "file": "Files/index.html",
+                "transparent": true,
+                "resizable": true,
+                "size": {"width": 5, "height": 30},
+                "min_size": {"width": 200, "height": 200},
+                "max_size": {"width": 2, "height": 5}
+            }
+        }
+ }
 }
   

@@ -31,9 +31,16 @@
 
 .app-header {
   display: flex;
-  background-color: #2727277c;
+  background-color: rgba(48, 48, 48, 0.575);
   align-items: center;
   
+  z-index: 9999;
+}
+
+.app-header1 {
+  display: flex;
+  background-color: transparent;
+  align-items: center;
   z-index: 9999;
 }
 
@@ -41,9 +48,11 @@
   font-family: "Roboto";
   font-style: normal;
   font-weight: normal;
-  color: #8d8d8d;
+  color: #272727;
   font-size: 14px;
   padding-left: 20px;
+  background-color: transparent;
+
 }
 
 .app-header.draggable,
@@ -65,7 +74,7 @@
   z-index: 1001;
   margin-left: auto;
   display: flex;
-  --color: #a8a8a8;
+  --color:rgba(170, 169, 179, 0.712);
   --color-hover: #dedede;
   --bg-color-hover: #464646;
 }
@@ -73,6 +82,7 @@
 .window-control {
   color: var(--color);
   background-color: transparent;
+  ;
 }
 .window-control:hover,
 .window-control:active {
@@ -81,15 +91,15 @@
 }
 
 .window-control-close {
-  --color-hover: #dedede;
+  --color-hover: #080808;
   --bg-color-hover: #c21913;
 }
 
 .light-theme {
-  background-color: #f6f6f6;
+  background-color: #181818ce;
 }
 .light-theme .window-controls-group {
-  --color: #828282;
+  --color: #141414;
   --color-hover: #4f4f4f;
   --bg-color-hover: #dedede;
 }

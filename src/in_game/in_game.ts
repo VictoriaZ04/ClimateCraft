@@ -6,7 +6,6 @@ import {
 import { interestingFeatures, hotkeys, windowNames } from "../consts";
 import WindowState = overwolf.windows.WindowStateEx;
 
-
 class InGame extends AppWindow{
   private static _instance: InGame;
   private _minecraftGameEventsListener: OWGamesEvents;
@@ -101,6 +100,7 @@ class InGame extends AppWindow{
   }
 }
 var onErrorListener,onInfoUpdates2Listener,	onNewEventsListener;
+var testlistener
 
 function registerEvents() {
 
@@ -114,8 +114,10 @@ function registerEvents() {
   
   onNewEventsListener = function(info) {
     console.log("EVENT FIRED: " + JSON.stringify(info));
-  }
 
+  
+  }
+  
   // general events errors
   overwolf.games.events.onError.addListener(onErrorListener);
   
@@ -132,7 +134,7 @@ function unregisterEvents() {
   overwolf.games.events.onInfoUpdates2.removeListener(onInfoUpdates2Listener);
     overwolf.games.events.onNewEvents.removeListener(onNewEventsListener);
 }
-
+  
 function gameLaunched(gameInfoResult) {
   if (!gameInfoResult) {
     return false;
@@ -224,3 +226,5 @@ overwolf.games.getRunningGameInfo(function (res) {
 overwolf.windows.changePosition("in_game", 0, 225, (callback) => {
   console.log(callback);
 })
+
+
