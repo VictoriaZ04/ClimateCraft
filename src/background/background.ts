@@ -21,6 +21,7 @@ class BackgroundController {
     // Populating the background controller's window dictionary
     this._windows[windowNames.desktop] = new OWWindow(windowNames.desktop);
     this._windows[windowNames.inGame] = new OWWindow(windowNames.inGame);
+    this._windows[windowNames.timer] = new OWWindow(windowNames.timer);
 
     // When a Fortnite game is started or is ended, toggle the app's windows
     this._fortniteGameListener = new OWGameListener({
@@ -54,7 +55,9 @@ class BackgroundController {
     if (info.isRunning) {
       this._windows[windowNames.desktop].close();
       this._windows[windowNames.inGame].restore();
+      this._windows[windowNames.timer].restore();
     } else {
+      this._windows[windowNames.timer].close();
       this._windows[windowNames.inGame].close();
       this._windows[windowNames.desktop].restore();
     }

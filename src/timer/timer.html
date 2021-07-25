@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="../../css/general.css" />
+  <link rel="stylesheet" href="../../css/header.css" />
+  <link rel="stylesheet" href="../../css/ingame.css" />
+  <link rel="stylesheet" href="../../css/modal.css" />
+  <title></title>
+</head>
+<body class="in_game">
+  <!-- -------------------------------- Header ------------------------------- -->
+
+
+  <!-- --------------------------------- Main -------------------------------- -->
+  <main>
+    <div class="sidebar">
+      <button class="timerbutton" onclick="startstop()">Time</button>
+      <h1 id = "display" value=></h1>
+      <script>
+        var start = null;
+        var _startTime = new Date().getTime();
+        function startstop(){
+          if(!start){
+            _startTime = new Date().getTime();
+
+            start = setInterval(function() {timer()}, 100);
+
+          }else{
+            clearInterval(start);
+            start = null;
+          }
+        }
+        function timer() {
+          this._time = "";
+          this._keepTime = new Date().getTime() - _startTime;
+          this._time = Math.floor(((this._keepTime) / 10) % 10) + this._time;
+          this._time =  + Math.floor(((this._keepTime) / 100) % 10) + this._time;
+          this._time = Math.floor(((this._keepTime) / 1000) % 60) + ":" + this._time;
+          this._keepTime = Math.floor(this._keepTime / 1000);
+          this._time = Math.floor(((this._keepTime)/60) % 60) + ":" + this._time;
+          if((this._keepTime)/60 >= 60){
+            this._keepTime = (this._keepTime)/60;
+            this._time = Math.floor(((this._keepTime) / 60))+ ":" + this._time;
+          }
+          console.log(this._time);
+          document.getElementById("display").innerHTML = this._time;
+        
+      }
+      </script>
+        
+  </main>
+
+  <script>
+    // Standard Google Universal Analytics code
+    
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      },
+        i[r].l = 1 * new Date(); a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+      // Note: https protocol here
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-144253676-3', 'auto');
+
+    // Removes failing protocol check. @see: http://stackoverflow.com/a/22152353/1958200
+    ga('set', 'checkProtocolTask', function () { });
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview', '/in_game.html');
+  </script>
+</body>
+</html>

@@ -9,7 +9,9 @@ module.exports = env => ({
     entry: {
         background: './src/background/background.ts',
         desktop: './src/desktop/desktop.ts',
-        in_game: './src/in_game/in_game.ts'
+        in_game: './src/in_game/in_game.ts',
+        timer: './src/timer/timer.ts'
+
     },
     devtool: 'inline-source-map',
     module: {
@@ -47,6 +49,11 @@ module.exports = env => ({
             template: './src/in_game/in_game.html',
             filename: path.resolve(__dirname, './dist/in_game.html'),
             chunks: ['in_game']
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/timer/timer.html',
+            filename: path.resolve(__dirname, './dist/timer.html'),
+            chunks: ['timer']
         }),
         new OverwolfPlugin(env)
     ]

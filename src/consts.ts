@@ -7,7 +7,8 @@ const interestingFeatures = [
 
 const windowNames = {
   inGame: 'in_game',
-  desktop: 'desktop'
+  desktop: 'desktop',
+  timer: 'timer'
 };
 
 const hotkeys = {
