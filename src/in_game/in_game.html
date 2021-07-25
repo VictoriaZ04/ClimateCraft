@@ -22,15 +22,49 @@
   <!-- --------------------------------- Main -------------------------------- -->
   <main>
     <div class="sidebar">
+      <button class="timerbutton" onclick="startstop()">Time</button>
+      <h1 id = "display" value=></h1>
+      <script>
+        var start = null;
+        var _startTime = new Date().getTime();
+        function startstop(){
+          if(!start){
+            _startTime = new Date().getTime();
+
+            start = setInterval(function() {timer()}, 100);
+
+          }else{
+            clearInterval(start);
+            start = null;
+          }
+        }
+        function timer() {
+          this._time = "";
+          this._keepTime = new Date().getTime() - _startTime;
+          this._time = Math.floor(((this._keepTime) / 10) % 10) + this._time;
+          this._time =  + Math.floor(((this._keepTime) / 100) % 10) + this._time;
+          this._time = Math.floor(((this._keepTime) / 1000) % 60) + ":" + this._time;
+          this._keepTime = Math.floor(this._keepTime / 1000);
+          this._time = Math.floor(((this._keepTime)/60) % 60) + ":" + this._time;
+          if((this._keepTime)/60 >= 60){
+            this._keepTime = (this._keepTime)/60;
+            this._time = Math.floor(((this._keepTime) / 60))+ ":" + this._time;
+          }
+          console.log(this._time);
+          document.getElementById("display").innerHTML = this._time;
+        
+      }
+      </script>
+        <div id="infoLog" class="Text"></div>
       <h1>Sustainability:</h1>
       <h1>AQI:</h1>
       <h1>Temp:</h1>
     </div>
   </main>
 
-
   <script>
     // Standard Google Universal Analytics code
+    
     (function (i, s, o, g, r, a, m) {
       i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
         (i[r].q = i[r].q || []).push(arguments)

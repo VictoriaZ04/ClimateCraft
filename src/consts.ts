@@ -11,7 +11,8 @@ const windowNames = {
 };
 
 const hotkeys = {
-  hotkey1: 'hotkey1'
+  hotkey1: 'showhide',
+  timer: 'timer'
 };
 
 export {

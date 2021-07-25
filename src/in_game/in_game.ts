@@ -6,24 +6,35 @@ import {
 import { interestingFeatures, hotkeys, windowNames } from "../consts";
 import WindowState = overwolf.windows.WindowStateEx;
 
-
 class InGame extends AppWindow{
   private static _instance: InGame;
   private _minecraftGameEventsListener: OWGamesEvents;
   private _eventsLog: HTMLElement;
   private _infoLog: HTMLElement;
+  private _timerOn = false;
+  private _startTime = 0;
+  private _time = "00:00:00";
+  private _keepTime = 0;
 
   private constructor(){
     super(windowNames.inGame);
 
-    this._eventsLog = document.getElementById('eventsLog');
-    this._infoLog = document.getElementById('infoLog');
+    this.setToggleHotkeyBehavior();
+    this.setToggleHotkeyText();
+   
+      
+    overwolf.settings.hotkeys.onPressed.addListener((res) => {
+      console.log("======================= " + JSON.stringify(res.name));
+      if(this._timerOn){
+        this._timerOn = false
+      }
+      else{
+        this._timerOn = true;
+        this._startTime = new Date().getTime();
+        this.timer()
+      }
+    })
 
-    this._minecraftGameEventsListener = new OWGamesEvents({
-      onInfoUpdates: this.onInfoUpdates.bind(this),
-      onNewEvents: this.onNewEvents.bind(this)
-    },
-      interestingFeatures);
   }
 
 
@@ -35,32 +46,18 @@ class InGame extends AppWindow{
     return this._instance;
   }
 
-  public run() {
-    this._minecraftGameEventsListener.start();
-  }
-
-  private onInfoUpdates(info) {
-    this.logLine(this._infoLog, info, false);
-  }
-
-  private onNewEvents(e) {
-    const shouldHighlight = e.events.some(event => {
-      switch (event.name) {
-        case 'game_info':
-        case 'match_info':
-          return true;
-      }
-
-      return false
-    });
-    this.logLine(this._eventsLog, e, shouldHighlight);
-  }
 
   // Displays the toggle minimize/restore hotkey in the window header
   private async setToggleHotkeyText() {
     const hotkeyText = await OWHotkeys.getHotkeyText(hotkeys.hotkey1, 8032);
-    const hotkeyElem = document.getElementById('hotkey');
+    const hotkeyTimer = await OWHotkeys.getHotkeyText(hotkeys.timer, 8032);
+
+    const hotkeyElem = document.getElementById('showhide');
+    const hotkeyElem2 = document.getElementById('timer');
+
     hotkeyElem.textContent = hotkeyText;
+    hotkeyElem2.textContent = hotkeyTimer;
+
   }
 
   // Sets toggleInGameWindow as the behavior for the Ctrl+F hotkey
@@ -77,61 +74,44 @@ class InGame extends AppWindow{
         this.currWindow.restore();
       }
     }
+    const toggleTimer = async (hotkeyResult: overwolf.settings.hotkeys.OnPressedEvent): Promise<void> =>{
+      console.log("=======================");
+      if(this._timerOn){
+        this._timerOn = false
+      }
+      else{
+        this._timerOn = true;
+        this._startTime = new Date().getTime();
+        this.timer()
+      }
+    }
+      OWHotkeys.onHotkeyDown(hotkeys.timer, toggleTimer);
       OWHotkeys.onHotkeyDown(hotkeys.hotkey1, toggleInGameWindow);
 
     }
-
-  private logLine(log: HTMLElement, data, highlight) {
-    console.log(`${log.id}:`);
-    console.log(data);
-    const line = document.createElement('pre');
-    line.textContent = JSON.stringify(data);
-
-    if (highlight) {
-      line.className = 'highlight';
+    private timer() {
+        this._time = "";
+        this._keepTime = new Date().getTime() - this._startTime;
+        this._time = Math.floor(((this._keepTime) / 10) % 10) + this._time;
+        this._time = Math.floor(((this._keepTime) / 100) % 10) + this._time;
+        this._time = Math.floor(((this._keepTime) / 1000) % 60) + this._time;
+        this._keepTime = Math.floor(this._keepTime / 1000);
+        this._time = Math.floor(((this._keepTime)/60) % 60) + this._time;
+        if((this._keepTime)/60 >= 60){
+          this._keepTime = (this._keepTime)/60;
+          this._time = Math.floor(((this._keepTime) / 60)) + this._time;
+        
+      }
+      console.log(this._time);
+      this._infoLog.remove();
+      this._infoLog.append(this._time);
+  
+      
     }
-
-    const shouldAutoScroll = (log.scrollTop + log.offsetHeight) > (log.scrollHeight - 10);
-
-    log.appendChild(line);
-
-    if (shouldAutoScroll) {
-      log.scrollTop = log.scrollHeight;
-    }
   }
-}
-var onErrorListener,onInfoUpdates2Listener,	onNewEventsListener;
 
-function registerEvents() {
-
-  onErrorListener = function(info) {
-    console.log("Error: " + JSON.stringify(info));
-  }
   
-  onInfoUpdates2Listener = function(info) {
-    console.log("Info UPDATE: " + JSON.stringify(info));
-  }
-  
-  onNewEventsListener = function(info) {
-    console.log("EVENT FIRED: " + JSON.stringify(info));
-  }
 
-  // general events errors
-  overwolf.games.events.onError.addListener(onErrorListener);
-  
-  // "static" data changed (total kills, username, steam-id)
-  // This will also be triggered the first time we register
-  // for events and will contain all the current information
-  overwolf.games.events.onInfoUpdates2.addListener(onInfoUpdates2Listener);									
-  // an event triggerd
-  overwolf.games.events.onNewEvents.addListener(onNewEventsListener);
-}
-
-function unregisterEvents() {
-    overwolf.games.events.onError.removeListener(onErrorListener);
-  overwolf.games.events.onInfoUpdates2.removeListener(onInfoUpdates2Listener);
-    overwolf.games.events.onNewEvents.removeListener(onNewEventsListener);
-}
 
 function gameLaunched(gameInfoResult) {
   if (!gameInfoResult) {
@@ -154,8 +134,9 @@ function gameLaunched(gameInfoResult) {
   if (Math.floor(gameInfoResult.gameInfo.id/10) != 8032) {
     return false;
   }
+  
 
-  console.log("Minecraft Launched");
+  
   return true;
 
 }
@@ -179,6 +160,9 @@ function gameRunning(gameInfo) {
   if (Math.floor(gameInfo.id/10) != 8032) {
     return false;
   }
+  overwolf.extensions.io.readTextFile(overwolf.extensions.io.StorageSpace.appData,("..\\AppData\\Roaming\\.minecraft\\saves\\World\\stats\\83ff73b8-7385-4222-819f-e29ebc16c59f.json"),(stat) => {
+    console.log("===================================== " + JSON.stringify(stat) )
+  });
 
   console.log("Minecraft running");
   return true;
@@ -205,18 +189,10 @@ function setFeatures() {
 
 
 // Start here
-overwolf.games.onGameInfoUpdated.addListener(function (res) {
-  if (gameLaunched(res)) {
-    unregisterEvents();
-    registerEvents();
-    setTimeout(setFeatures, 1000);
-  }
-  console.log("onGameInfoUpdated: " + JSON.stringify(res));
-});
+
 
 overwolf.games.getRunningGameInfo(function (res) {
   if (gameRunning(res)) {
-    registerEvents();
     setTimeout(setFeatures, 1000);
   }
   console.log("getRunningGameInfo: " + JSON.stringify(res));

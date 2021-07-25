@@ -36,7 +36,7 @@
           "height": 400
         },
         "min_size": {
-          "width": 10,
+          "width": 200,
           "height": 400
         }
       },
@@ -51,11 +51,11 @@
         "override_on_update": true,
       
         "size": {
-          "width": 15,
+          "width": 200,
           "height": 400
         },
         "min_size": {
-          "width": 15,
+          "width": 200,
           "height": 400
         }
       }
@@ -84,7 +84,14 @@
       "showhide": {
         "title": "Show/Hide In-Game Window",
         "action-type": "toggle",
-        "default": "Ctrl+f"
+        "default": "h",
+        "passthrough": true
+      },
+      "timer": {
+        "title": "toggle Timer",
+        "action-type": "custom",
+        "default": "m",
+        "passthrough": true
       }
     },
     "protocol_override_domains": {
